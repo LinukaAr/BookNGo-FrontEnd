@@ -1,41 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './core/services/auth.guard';
-import { LoginComponent } from './pages/login/login.component';
+import { ConfigurationFormComponent } from './pages/configuration-form/configuration-form.component';
 import { EventsComponent } from './pages/events/events.component';
+import { ControlPanelComponent } from './pages/control-panel/control-panel.component';
+import { LogDisplayComponent } from './pages/log-display/log-display.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: EventsComponent
-  },
-  {
-    path: 'home',
-    component: EventsComponent
-  },
-  {
-    path: 'login',
-    component: LoginComponent
-  },
-  // {
-  //   path: 'layout',
-  //   component: LayoutComponent,
-  //   canActivate: [AuthGuard],
-  //   children: [
-  //     {
-  //       path: 'tickets',
-  //       component: EventsComponent
-  //     },
-  //     {
-  //       path: 'department',
-  //       component: DepartmentComponent
-  //     },
-  //     {
-  //       path: 'leaves',
-  //       component: LeavesComponent
-  //     }
-  //   ]
-  // }
+  { path: 'config', component: ConfigurationFormComponent },
+  { path: 'ticket-display', component: EventsComponent },
+  { path: 'control-panel', component: ControlPanelComponent },
+  { path: 'log-display', component: LogDisplayComponent },
+  { path: '', redirectTo: '/config', pathMatch: 'full' }
 ];
 
 @NgModule({

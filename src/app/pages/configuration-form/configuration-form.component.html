@@ -1,0 +1,21 @@
+<div class="container mt-4">
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="totalTickets">Total Tickets</label>
+        <input type="number" class="form-control" id="totalTickets" [(ngModel)]="totalTickets" name="totalTickets" required>
+      </div>
+      <div class="form-group">
+        <label for="ticketReleaseRate">Ticket Release Rate</label>
+        <input type="number" class="form-control" id="ticketReleaseRate" [(ngModel)]="ticketReleaseRate" name="ticketReleaseRate" required>
+      </div>
+      <div class="form-group">
+        <label for="customerRetrievalRate">Customer Retrieval Rate</label>
+        <input type="number" class="form-control" id="customerRetrievalRate" [(ngModel)]="customerRetrievalRate" name="customerRetrievalRate" required>
+      </div>
+      <div class="form-group">
+        <label for="maxTicketCapacity">Max Ticket Capacity</label>
+        <input type="number" class="form-control" id="maxTicketCapacity" [(ngModel)]="maxTicketCapacity" name="maxTicketCapacity" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>

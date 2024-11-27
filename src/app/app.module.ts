@@ -11,6 +11,11 @@ import { MyCarouselComponent } from './shared/widgets/my-carousel/my-carousel.co
 import { MyButtonComponent } from './shared/widgets/my-button/my-button.component';
 import { AuthGuard } from './core/services/auth.guard';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { ConfigurationFormComponent } from './pages/configuration-form/configuration-form.component';
+import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
+import { WebSocketService } from './services/websocket.service';
+import { ControlPanelComponent } from './pages/control-panel/control-panel.component';
+import { LogDisplayComponent } from './pages/log-display/log-display.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +24,12 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     LoginComponent,
     MyCarouselComponent,
     MyButtonComponent,
-    NavbarComponent
+    NavbarComponent,
+    ConfigurationFormComponent,
+    AdminDashboardComponent,
+    ControlPanelComponent,
+    LogDisplayComponent,
+  
   ],
   imports: [
     BrowserModule,
@@ -27,7 +37,10 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     FormsModule,
     HttpClientModule
   ],
-  providers: [AuthGuard],
+  providers: [
+    AuthGuard,
+    WebSocketService    
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
