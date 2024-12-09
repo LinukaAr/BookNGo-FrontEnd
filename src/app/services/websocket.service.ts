@@ -1,36 +1,62 @@
 import { Injectable } from '@angular/core';
-import { WebSocketSubject, webSocket } from 'rxjs/webSocket';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WebSocketService {
-  private socket$: WebSocketSubject<any>;
+  private socket!: WebSocket;
+  private subject!: Subject<any>;
+  private configuration: any;
 
   constructor() {
-    this.socket$ = webSocket('ws://localhost:8080/ws/ticketing');
-
-    // Log connection status
-    this.socket$.subscribe(
-      msg => console.log('Received message:', msg),
-      err => console.error('WebSocket error:', err),
-      () => console.log('WebSocket connection closed')
-    );
-
-    // Log when the connection is opened
-    this.socket$.subscribe(
-      () => console.log('WebSocket connection established'),
-      err => console.error('WebSocket error:', err),
-      () => console.log('WebSocket connection closed')
-    );
+    this.connect();
   }
 
-  sendMessage(msg: any) {
-    this.socket$.next(msg);
+  public connect() {
+    this.socket = new WebSocket('ws://localhost:8080/ws/ticketing');
+    this.subject = new Subject<any>();
+
+    this.socket.onopen = () => {
+      console.log('WebSocket connection established');
+    };
+
+    this.socket.onclose = (event) => {
+      console.log('WebSocket connection closed', event);
+      if (event.code !== 1000) {
+        console.log('Reconnecting...');
+        setTimeout(() => this.connect(), 1000);
+      }
+    };
+
+    this.socket.onerror = (error) => {
+      console.error('WebSocket error:', error);
+    };
+
+    this.socket.onmessage = (event) => {
+      console.log('Message received from server:', event.data);
+      this.subject.next(event.data);
+    };
   }
 
-  getMessages(): Observable<any> {
-    return this.socket$.asObservable();
+  onMessage(): Observable<any> {
+    return this.subject.asObservable();
+  }
+
+  sendMessage(message: any): void {
+    if (this.socket && this.socket.readyState === WebSocket.OPEN) {
+        console.log('Sending message:', message);
+        this.socket.send(JSON.stringify(message));
+    } else {
+        console.error('WebSocket is not open. Ready state is:', this.socket.readyState);
+    }
+  }
+
+  setConfiguration(config: any): void {
+    this.configuration = config;
+  }
+
+  getConfiguration(): any {
+    return this.configuration;
   }
 }

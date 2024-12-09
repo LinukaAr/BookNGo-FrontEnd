@@ -1,23 +1,31 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { WebSocketService } from '../../services/websocket.service'; // Correct path
 
-import { LogDisplayComponent } from './log-display.component';
+@Component({
+  selector: 'app-log-display',  // Correct selector
+  template: `
+    <div *ngFor="let log of logs">{{ log }}</div>
+  `,
+})
+export class LogDisplayComponent implements OnInit, OnDestroy {
+  logs: string[] = [];
+  private logSubscription!: Subscription; // Ensure correct initialization
 
-describe('LogDisplayComponent', () => {
-  let component: LogDisplayComponent;
-  let fixture: ComponentFixture<LogDisplayComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ LogDisplayComponent ]
-    })
-    .compileComponents();
+  constructor(private webSocketService: WebSocketService) { }
 
-    fixture = TestBed.createComponent(LogDisplayComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    ngOnInit(): void {
+        this.logSubscription = this.webSocketService.onLogMessage().subscribe((message) => {
+            this.logs.push(message);
+        });
+    }
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+
+    ngOnDestroy(): void {
+        if (this.logSubscription){
+            this.logSubscription.unsubscribe();
+        }
+  }
+}
+

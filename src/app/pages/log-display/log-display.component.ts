@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { WebSocketService } from '../../services/websocket.service';
 
 @Component({
   selector: 'app-log-display',
@@ -6,10 +7,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./log-display.component.css']
 })
 export class LogDisplayComponent implements OnInit {
+  ticketCount: number = 0;
   logs: string[] = [];
 
+  constructor(private webSocketService: WebSocketService) {}
+
   ngOnInit(): void {
-    // Fetch logs
-    this.logs = ['Log 1', 'Log 2', 'Log 3']; // Example data
+    this.webSocketService.onMessage().subscribe((message: string) => {
+      console.log('Message received in LogDisplayComponent:', message);
+      try {
+        const data = JSON.parse(message);
+        if (data && data.ticketCount !== undefined) {
+          this.ticketCount = data.ticketCount;
+        }
+        this.logs.push(message);
+      } catch (e) {
+        console.error('Error parsing message:', e);
+      }
+    });
   }
 }

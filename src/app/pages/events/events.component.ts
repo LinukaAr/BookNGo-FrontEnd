@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { EventService } from '../../services/event.service';
 import { WebSocketService } from '../../services/websocket.service';
 import { Modal } from 'bootstrap';
 
@@ -23,49 +24,34 @@ interface Event {
   styleUrls: ['./events.component.css']
 })
 export class EventsComponent implements OnInit {
-  searchTerm: string = '';
-  selectedCategory: string = '';
-  sortBy: string = 'date';
   events: Event[] = [];
   filteredEvents: Event[] = [];
   selectedEvent: Event | null = null;
+  searchTerm: string = '';
+  selectedCategory: string = '';
+  sortBy: string = '';
+  categories: string[] = [];
 
-  constructor(private webSocketService: WebSocketService) {
-    this.events = this.getMockEvents();
-    this.filteredEvents = [...this.events];
-  }
+  constructor(private eventService: EventService, private webSocketService: WebSocketService) {}
 
   ngOnInit(): void {
-    this.applyFilters();
-    this.webSocketService.getMessages().subscribe(message => {
-      console.log(message);
+    this.loadEvents();
+    this.webSocketService.connect();
+    this.webSocketService.onMessage().subscribe((message: any) => {
+      if (message.startsWith('Ticket count updated: ')) {
+        const newCount = parseInt(message.split(': ')[1], 10);
+        if (this.selectedEvent) {
+          this.selectedEvent.availableTickets = newCount;
+        }
+      }
     });
   }
 
-  private getMockEvents(): Event[] {
-    return [
-      // Mock events data
-    ];
-  }
-
-  applyFilters(): void {
-    this.filteredEvents = this.events
-      .filter(event => {
-        const matchesSearch = event.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-                              event.description.toLowerCase().includes(this.searchTerm.toLowerCase());
-        const matchesCategory = !this.selectedCategory || event.category === this.selectedCategory;
-        return matchesSearch && matchesCategory;
-      })
-      .sort((a, b) => {
-        switch (this.sortBy) {
-          case 'price':
-            return a.price - b.price;
-          case 'name':
-            return a.name.localeCompare(b.name);
-          default:
-            return new Date(a.date).getTime() - new Date(b.date).getTime();
-        }
-      });
+  loadEvents(): void {
+    this.eventService.getEvents().subscribe((events: Event[]) => {
+      this.events = events;
+      this.applyFilters();
+    });
   }
 
   showDetails(event: Event): void {
@@ -98,5 +84,10 @@ export class EventsComponent implements OnInit {
 
   onSortChange(): void {
     this.applyFilters();
+  }
+
+  private applyFilters(): void {
+    // Implement filtering logic here
+    this.filteredEvents = this.events; // Placeholder for actual filtering logic
   }
 }

@@ -1,0 +1,56 @@
+.control-panel {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #e2e1e1;
+    padding: 10px;
+    border-radius: 6px;
+  }
+  
+  .control-panel p {
+    margin: 0;
+    font-weight: bold;
+    color: #333333;
+  }
+  
+  .btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+  
+  .btn-start {
+    background-color: #28a745;
+    color: #ffffff;
+  }
+  
+  .btn-start:hover {
+    background-color: #218838;
+  }
+  
+  .btn-stop {
+    background-color: #dc3545;
+    color: #ffffff;
+  }
+  
+  .btn-stop:hover {
+    background-color: #c82333;
+  }
+
+  p{
+    font-size: 20px;
+    font-weight: bold;
+    margin-right: 30px;
+  }
+
+  .error-message {
+    color: red;
+    margin-top: 10px;
+  }
+  
+  .status-message {
+    color: green;
+    margin-top: 10px;
+  }
