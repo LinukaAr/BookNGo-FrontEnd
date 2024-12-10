@@ -1,4 +1,7 @@
 # TicketingTool Frontend
+![image](https://github.com/user-attachments/assets/4ad7001d-0b10-4bc3-bb41-1b0aded5ef3c)
+
+![image](https://github.com/user-attachments/assets/0bf4ae60-50c4-4a17-9c88-efac0e2b2e31)
 
 ## Introduction
 This is the frontend part of the TicketingTool project, built with Angular. It provides a user interface for managing and viewing ticketing information in real-time.
