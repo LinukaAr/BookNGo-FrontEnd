@@ -59,4 +59,8 @@ export class WebSocketService {
   getConfiguration(): any {
     return this.configuration;
   }
+
+  public getMessages(): Observable<any> {
+    return this.subject.asObservable();
+  }
 }

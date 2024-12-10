@@ -9,7 +9,8 @@ import { ConfigurationFormComponent } from './pages/configuration-form/configura
 import { ControlPanelComponent } from './pages/control-panel/control-panel.component';
 import { LogDisplayComponent } from './pages/log-display/log-display.component';
 import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
-import { NavbarComponent } from './components/navbar/navbar.component'; 
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { RealTimeChartComponent } from './pages/real-time-chart/real-time-chart.component'; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +19,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     ControlPanelComponent,
     LogDisplayComponent,
     AdminDashboardComponent,
-    NavbarComponent 
+    NavbarComponent,
+    RealTimeChartComponent 
   ],
   imports: [
     BrowserModule,

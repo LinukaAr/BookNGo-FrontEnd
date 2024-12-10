@@ -19,6 +19,10 @@
     "@angular/platform-browser-dynamic": "^14.2.0",
     "@angular/router": "^14.2.0",
     "bootstrap": "^5.3.3",
+    "chart.js": "^4.4.7",
+    "chartjs-adapter-date-fns": "^3.0.0",
+    "date-fns": "^2.21.1",
+    "ngx-charts": "^3.0.2",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

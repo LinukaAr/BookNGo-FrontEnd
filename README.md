@@ -1,27 +1,46 @@
-# TicketingTool
+# TicketingTool Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.9.
+## Introduction
+This is the frontend part of the TicketingTool project, built with Angular. It provides a user interface for managing and viewing ticketing information in real-time.
 
-## Development server
+## Setup Instructions
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+### Prerequisites
+- Node.js version 18 or higher
+- Angular CLI version 14.2.9
 
-## Code scaffolding
+### How to Build and Run the Application
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/your-repo/ticketing-tool-frontend.git
+   cd ticketing-tool-frontend
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+2. Install dependencies:
+    ```sh
+    npm install
 
-## Build
+3. Run the development server:
+    ```sh
+    ng serve
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+4. Open your browser and navigate to http://localhost:4200/.
 
-## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Usage Instructions
+# How to Configure and Start the System
+ 
+**O** Ensure the backend server is running and accessible.
 
-## Running end-to-end tests
+**O** Update the WebSocket URL in websocket.service.ts if necessary.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+# Explanation of UI Controls
 
-## Further help
+**Real-Time Chart:** Displays real-time ticket counts. The chart updates automatically as new data is received via WebSocket.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+**Log Display:** Shows the latest logs received from the backend. The blinking red circle indicates the current ticket count status.
+
+## Troubleshooting
+If you encounter any issues during setup or runtime:
+
+* Check for dependency compatibility.
+* Refer to the Angular CLI documentation for additional guidance.
