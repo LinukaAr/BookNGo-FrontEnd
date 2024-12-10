@@ -1,4 +1,8 @@
 <div class="log-display">
+  <p class="ticket-count">
+    <span class="blinking-circle"></span>
+    Current Tickets: {{ ticketCount }}
+  </p>
   <h3>Logs</h3>
   <div class="log-container">
     <div *ngFor="let log of logs" class="log-entry">
